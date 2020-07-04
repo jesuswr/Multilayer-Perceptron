@@ -37,11 +37,11 @@ long double perceptron::sigma(const vector<long double> &inp){
 }
 
 void perceptron::compute_output_gradient(long double d){
-    local_gradient = a * (d - y) * y * (1.0 - y);
+    local_gradient = a * y * (1.0 - y) * (d - y) ;
 }
 
 void perceptron::compute_hidden_gradient(long double sum_gradient_w){
-    local_gradient = a * y * (1 - y) * sum_gradient_w;
+    local_gradient = a * y * (1.0 - y) * sum_gradient_w;
 }
 
 void perceptron::train(const vector<long double> &inp_y){
