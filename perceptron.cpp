@@ -4,11 +4,12 @@
 #include <math.h>
 #include "perceptron.hpp"
 
+using namespace std;
+
 perceptron::perceptron(int inp_sz, long double etha, long double alpha,
         long double w_range, long double a = 1) : etha(etha), alpha(alpha), a(a) {
     w.resize(inp_sz+1);
     delta_w.resize(inp_sz+1);
-    
     for (int i = 0; i <= inp_sz; ++i){
         long double rnd = (long double)rand()*2/RAND_MAX -1;
         w[i] = (long double)rnd*w_range;
@@ -31,9 +32,9 @@ long double perceptron::act_func(long double x){
     return ( 1.0 / ( 1.0 + exp(-a*x) ) );
 }
 
-long double perceptron::sigma(const vector<long double> &inp){
+void perceptron::sigma(const vector<long double> &inp){
     v = (*this)*inp;
-    return y = act_func(v);
+    y = act_func(v);
 }
 
 void perceptron::compute_output_gradient(long double d){

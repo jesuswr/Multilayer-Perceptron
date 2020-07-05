@@ -1,9 +1,9 @@
 #ifndef _PERCEPTRON_HPP
 #define _PERCEPTRON_HPP
 
-using namespace std;
-
 #include <vector>
+
+using namespace std;
 
 class perceptron{
     vector<long double> w;
@@ -23,7 +23,7 @@ public:
 
     long double act_func(long double x);
 
-    long double sigma(const vector<long double> &inp);
+    void sigma(const vector<long double> &inp);
 
     void compute_output_gradient(long double d);
 
