@@ -112,7 +112,7 @@ error_data multilayer_perceptron::train(input_data train_data, input_data test_d
 long double multilayer_perceptron::test1(input_data test_data){
     int out_sz = output_layer.size();
     int n = test_data.size();
-    long double porcentage = 0;
+    long double percentage = 0;
 
     for(int i = 0; i < n; i++){
         propagate_forward(test_data[i].first);
@@ -138,17 +138,17 @@ long double multilayer_perceptron::test1(input_data test_data){
         }
         
         if ( good ){
-            porcentage++;
+            percentage++;
         }
     }
 
-    return porcentage/n;
+    return percentage/n;
 }
 
 long double multilayer_perceptron::test2(input_data test_data){
     int out_sz = output_layer.size();
     int n = test_data.size();
-    long double porcentage = 0;
+    long double percentage = 0;
 
     for(int i = 0; i < n; i++){
         propagate_forward(test_data[i].first);
@@ -165,9 +165,9 @@ long double multilayer_perceptron::test2(input_data test_data){
         }
         
         if ( test_data[i].second[mxi] > 0.9 ){
-            porcentage++;
+            percentage++;
         }
     }
 
-    return porcentage/n;
+    return percentage/n;
 }

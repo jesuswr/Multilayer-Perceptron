@@ -1,7 +1,10 @@
-all : test_perceptron
+all : test_perceptron test_perceptron2
 
 test_perceptron : main.cpp perceptron.o multilayer_perceptron.o
 	g++ -Wall -o test_perceptron main.cpp perceptron.o multilayer_perceptron.o
+
+test_perceptron2 : main2.cpp perceptron.o multilayer_perceptron.o
+	g++ -Wall -o test_perceptron2 main2.cpp perceptron.o multilayer_perceptron.o
 
 perceptron.o: perceptron.cpp perceptron.hpp
 	g++ -Wall -c perceptron.cpp
