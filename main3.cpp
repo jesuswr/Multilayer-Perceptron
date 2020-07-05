@@ -60,6 +60,8 @@ int main(){
         train_data2[i] = train_data[i];
     }
     train_data.clear();
+
+    printf("Size 1: %lu Size 2: %lu\n", train_data1.size(), train_data2.size());
     
     multilayer_perceptron network1(NUM_PIXELS, HIDDEN_SIZE, OUTPUT_SIZE,
         ETHA, ALPHA, WEIGHT_RANGE, A);
