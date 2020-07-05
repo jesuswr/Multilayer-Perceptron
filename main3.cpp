@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "multilayer_perceptron.hpp"
+#include <algorithm>
 
 using namespace std;
 
@@ -8,7 +9,7 @@ const int NUM_PIXELS = 784, OUTPUT_SIZE = 10, EPOCHS = 15;
 const int HIDDEN_SIZE = 100;
 const long double WEIGHT_RANGE = 0.05;
 const long double ETHA = 0.1, A = 1;
-const long double ALPHA[] = {0, 0.25, 0.5};
+const long double ALPHA = 0.9;
 
 int main(){
     FILE *input = fopen("mnist_train.csv", "r");
@@ -47,19 +48,28 @@ int main(){
     }
     fclose(input);
 
+    input_data train_data1(train_data.size()/4), train_data2(train_data.size()/2);
+    
+    random_shuffle(train_data.begin(), train_data.end());
+    for (unsigned int i = 0; i < train_data.size()/4; ++i){
+        train_data1[i] = train_data[i];
+    }
+
+    random_shuffle(train_data.begin(), train_data.end());
+    for (unsigned int i = 0; i < train_data.size()/2; ++i){
+        train_data2[i] = train_data[i];
+    }
+    train_data.clear();
+    
     multilayer_perceptron network1(NUM_PIXELS, HIDDEN_SIZE, OUTPUT_SIZE,
-        ETHA, ALPHA[0], WEIGHT_RANGE, A);
+        ETHA, ALPHA, WEIGHT_RANGE, A);
     multilayer_perceptron network2(NUM_PIXELS, HIDDEN_SIZE, OUTPUT_SIZE,
-        ETHA, ALPHA[1], WEIGHT_RANGE, A);
-    multilayer_perceptron network3(NUM_PIXELS, HIDDEN_SIZE, OUTPUT_SIZE,
-        ETHA, ALPHA[2], WEIGHT_RANGE, A);
+        ETHA, ALPHA, WEIGHT_RANGE, A);
 
     printf("Training network 1...\n");
-    error_data error_info1 = network1.train(train_data, test_data, EPOCHS);
+    error_data error_info1 = network1.train(train_data1, test_data, EPOCHS);
     printf("Training network 2...\n");
-    error_data error_info2 = network2.train(train_data, test_data, EPOCHS);
-    printf("Training network 3...\n");
-    error_data error_info3 = network3.train(train_data, test_data, EPOCHS);
+    error_data error_info2 = network2.train(train_data2, test_data, EPOCHS);
 
 
     printf("Calculating Percentage of good clasifications of network 1...\n");
@@ -68,9 +78,6 @@ int main(){
     printf("Calculating Percentage of good clasifications of network 2...\n");
     long double pct_new_standard2 = network2.test1(test_data);
     long double pct_old_standard2 = network2.test2(test_data);
-    printf("Calculating Percentage of good clasifications of network 3...\n");
-    long double pct_new_standard3 = network3.test1(test_data);
-    long double pct_old_standard3 = network3.test2(test_data);
 
     printf("Average error for epoch with training data in network 1:\n");
     for(auto x : error_info1.first )
@@ -90,23 +97,12 @@ int main(){
         printf("%Lf, ", x);
     printf("\n");
 
-    printf("Average error for epoch with training data in network 3:\n");
-    for(auto x : error_info3.first )
-        printf("%Lf, ", x);
-    printf("\n");
-    printf("Average error for epoch with testing data in network 3:\n");
-    for(auto x : error_info3.second )
-        printf("%Lf, ", x);
-    printf("\n");
 
     printf("Percentage with new standard in network 1: %c%Lf\n", '%', 100*pct_new_standard1);
     printf("Percentage with old standard in network 1: %c%Lf\n", '%', 100*pct_old_standard1);
     
     printf("Percentage with new standard in network 2: %c%Lf\n", '%', 100*pct_new_standard2);
     printf("Percentage with old standard in network 2: %c%Lf\n", '%', 100*pct_old_standard2);
-
-    printf("Percentage with new standard in network 3: %c%Lf\n", '%', 100*pct_new_standard3);
-    printf("Percentage with old standard in network 3: %c%Lf\n", '%', 100*pct_old_standard3);
 
     return 0;
 }
