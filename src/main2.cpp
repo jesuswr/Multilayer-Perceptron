@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const int NUM_PIXELS = 784, OUTPUT_SIZE = 10, EPOCHS = 15;
+const int NUM_PIXELS = 784, OUTPUT_SIZE = 10, EPOCHS = 50;
 const int HIDDEN_SIZE = 100;
 const long double WEIGHT_RANGE = 0.05;
 const long double ETHA = 0.1, A = 1;
