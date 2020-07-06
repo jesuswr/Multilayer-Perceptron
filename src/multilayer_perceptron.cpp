@@ -94,27 +94,30 @@ error_data multilayer_perceptron::train(input_data train_data, input_data test_d
 		for (int i = 0; i < m; ++i) {
 			propagate_forward(test_data[i].first);
 			for (int j = 0; j < out_sz; ++j) {
-				long double e = test_data[i].second[j] - hidden_layer[j].get_y();
+				long double e = test_data[i].second[j] - output_layer[j].get_y();
 				avg_error_test += e * e;
 			}
 		}
 		avg_error_test = avg_error_test / (2.0 * m);
 		test_error.push_back(avg_error_test);
 
-		// Get output with training data, compute average error and train the
-		// perceptrons
+		// Get output with training data, compute average error
 		for (int i = 0; i < n; ++i) {
 			propagate_forward(train_data[i].first);
 			for (int j = 0; j < out_sz; ++j) {
-				long double e = train_data[i].second[j] - hidden_layer[j].get_y();
+				long double e = train_data[i].second[j] - output_layer[j].get_y();
 				avg_error_train += e * e;
 			}
-
-			propagate_backward(train_data[i].second);
-			update_weights(train_data[i].first);
 		}
 		avg_error_train = avg_error_train / (2.0 * n);
 		train_error.push_back(avg_error_train);
+
+		// Train the perceptrons
+		for (int i = 0; i < n; ++i) {
+			propagate_forward(train_data[i].first);
+			propagate_backward(train_data[i].second);
+			update_weights(train_data[i].first);
+		}
 
 		printf("Cycle number %d complete.\n", k);
 	}
