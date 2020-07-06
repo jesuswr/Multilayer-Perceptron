@@ -1,3 +1,5 @@
+// Question 3: MLP with alpha as 0, 0.25 and 0.5
+
 #include <iostream>
 #include <vector>
 #include "multilayer_perceptron.hpp"

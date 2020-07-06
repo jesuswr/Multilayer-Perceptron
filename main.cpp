@@ -1,3 +1,5 @@
+// Question 2: MLP with 20, 50 and 100 neurons in hidden layer
+
 #include <iostream>
 #include <vector>
 #include "multilayer_perceptron.hpp"

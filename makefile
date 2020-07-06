@@ -16,5 +16,5 @@ multilayer_perceptron.o: multilayer_perceptron.cpp multilayer_perceptron.hpp
 	g++ -Wall -c multilayer_perceptron.cpp
 
 clean:
-	rm *.o test_perceptron 
+	rm *.o test_perceptron* 
 
