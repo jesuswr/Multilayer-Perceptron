@@ -46,7 +46,7 @@ void multilayer_perceptron::propagate_backward(const vector<long double> &d) {
 	int hidden_sz = hidden_layer.size();
 	int output_sz = output_layer.size();
 
-	// Calculate local gradient of output gradient with the desired output
+	// Calculate local gradient of output layer with the desired output
 	for (int i = 0; i < output_sz; ++i) {
 		output_layer[i].compute_output_gradient(d[i]);
 	}
