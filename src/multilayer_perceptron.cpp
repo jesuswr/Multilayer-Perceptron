@@ -101,7 +101,7 @@ error_data multilayer_perceptron::train(input_data train_data, input_data test_d
 		avg_error_test = avg_error_test / (2.0 * m);
 		test_error.push_back(avg_error_test);
 
-		// Get output with training data, compute average error
+		// Get output with training data and compute average error
 		for (int i = 0; i < n; ++i) {
 			propagate_forward(train_data[i].first);
 			for (int j = 0; j < out_sz; ++j) {
@@ -112,7 +112,7 @@ error_data multilayer_perceptron::train(input_data train_data, input_data test_d
 		avg_error_train = avg_error_train / (2.0 * n);
 		train_error.push_back(avg_error_train);
 
-		// Train the perceptrons
+		// Train the perceptrons with training data
 		for (int i = 0; i < n; ++i) {
 			propagate_forward(train_data[i].first);
 			propagate_backward(train_data[i].second);
