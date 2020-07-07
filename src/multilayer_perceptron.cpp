@@ -52,7 +52,7 @@ void multilayer_perceptron::propagate_backward(const vector<long double> &d) {
 	}
 
 	// Calculate local gradient of hidden layer with the local gradients
-	// of the
+	// of the output layer
 	for (int i = 0; i < hidden_sz; ++i) {
 		long double sum_grad_w = 0;
 		for (int j = 0; j < output_sz; ++j) {
